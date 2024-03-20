@@ -4,9 +4,33 @@ body {
   font-family: 'Arial', sans-serif;
 }
 
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  margin-right: auto; /* Empurra o logotipo para a esquerda */
+}
+
+.logo img {
+  width: 150px; /* Defina a largura desejada do logotipo */
+  height: auto; /* Mantém a proporção de aspecto */
+}
+
+.buttons {
+  display: flex;
+}
+
+.buttons button {
+  margin-left: 10px; /* Espaçamento entre os botões */
+}
+
 /* Estilo para o cabeçalho (header) */
 header {
-  background: #4E4180;
+  background-image: url("src/images/books.jpg"); /* Caminho para a sua imagem */
+  background-size: cover; /* Cobrir toda a área do cabeçalho */
+  background-position: center; /* Centralizar a imagem */
   width: 100%;
   height: 400px;
   text-align: center;
@@ -36,7 +60,7 @@ h1 {
 input[type="text"] {
   width: 60%;
   padding: 20px;
-  border: 1px solid #C1FF72;
+  border: 1px solid #a4a2a5;
   border-radius: 4px;
   margin-bottom: 10px;
 }
@@ -44,7 +68,7 @@ input[type="text"] {
 /* Estilos para botão geral */
 button {
   padding: 10px;
-  background: #8B78A1;
+  background: #737274;
   color: #FFF;
   border: none;
   border-radius: 4px;
@@ -54,7 +78,7 @@ button {
 
 /* Estilos para botão ao passar o mouse sobre ele */
 button:hover {
-  background: #6C5679;
+  background: #212022;
 }
 
 /* Estilos para o container do formulário */
