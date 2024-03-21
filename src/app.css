@@ -46,29 +46,29 @@ header {
 h1 {
   color: #fff;
   margin: 0;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 /* Estilos para o container dos campos do cabeçalho */
-.fields-header {
+/* .fields-header {
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
+  align-items: center; */
+/* } */
 
 /* Estilos para input de texto */
-input[type="text"] {
+.search-input {
   width: 60%;
   padding: 20px;
-  border: 1px solid #a4a2a5;
-  border-radius: 4px;
+  border: 2px solid #a4a2a5;
+  border-radius: 5px;
   margin-bottom: 10px;
 }
 
 /* Estilos para botão geral */
 button {
   padding: 10px;
-  background: #737274;
+  background: #777769;
   color: #FFF;
   border: none;
   border-radius: 4px;
@@ -78,12 +78,12 @@ button {
 
 /* Estilos para botão ao passar o mouse sobre ele */
 button:hover {
-  background: #212022;
+  background: #6D6466;
 }
 
 /* Estilos para o container do formulário */
 .form-container {
-  background: #AEA1BA;
+  background: #9F9F92;
   padding: 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   width: 100%;
@@ -110,19 +110,19 @@ textarea {
 /* Estilos para o botão de submit no formulário */
 button[type="submit"] {
   padding: 10px;
-  background: #4E4180;
+  background: #777769;
   color: #fff;
-  border: none;
+  border: 1px solid #2E2427;
   border-radius: 4px;
   cursor: pointer;
   padding: 20px;
-  width: 30%;
+  width: 50%;
 }
 
 /* Estilos para o botão de submit ao passar o mouse sobre ele */
 button[type="submit"]:hover {
-  background: #C1FF72;
-  color: #4E4180;
+  background: #c9d5b5;
+  color: #333;
 }
 
 /* Estilos para a galeria de elementos */
@@ -139,17 +139,23 @@ button[type="submit"]:hover {
 
 /* Estilos para o cartão (card) individual */
 .card {
-  border: 1px solid #4E4180;
+  border: 1px solid #4e3d42;
   border-radius: 8px;
   margin: 10px;
   padding: 15px;
   max-width: 300px;
   text-align: center;
+  font-size: 12px;
+
+  .card-img {
+    max-width: 50%;
+    height: auto;
+  }
 }
 
 /* Estilos para o título h2 dentro do cartão */
 .card h2 {
-  color: #4E4180;
+  color: #4e3d42;
 }
 
 /* Estilos para o parágrafo dentro do cartão */
@@ -162,8 +168,8 @@ button[type="submit"]:hover {
   display: inline-block;
   padding: 10px 20px;
   margin-top: 10px;
-  background: #8B78A1;
-  color: #FFF;
+  background: #c9d5b5;
+  color: #333;
   text-decoration: none;
   border-radius: 4px;
   transition: background 0.3s ease;
@@ -171,7 +177,7 @@ button[type="submit"]:hover {
 
 /* Estilos para o link ao passar o mouse sobre ele */
 .card a:hover {
-  background: #6C5679;
+  background: #9F9F92;
 }
 
 /* Estilos para um elemento específico "read-the-docs" */
@@ -183,10 +189,13 @@ button[type="submit"]:hover {
 
 /* Estilos para o rodapé (footer) */
 footer {
-  background: #4E4180;
+  background: #2E2427;
   color: #FFF;
   text-align: center;
   padding: 10px;
   bottom: 0;
   width: 100%;
 }
+
+/* botão: #737274 */
+/* hover e footer: #6d6466 */
