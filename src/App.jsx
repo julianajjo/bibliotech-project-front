@@ -4,7 +4,7 @@ import "./app.css";
 
 function App() {
 
-  const cardsData = [
+  const booksData = [
     {
       "title": "Um defeito de cor",
       "author": " Ana Maria Gonçalves ",
@@ -71,7 +71,7 @@ function App() {
     setOpen(false);
   };
 
-  const cardsFiltered = cardsData.filter(card => {
+  const booksFiltered = booksData.filter(card => {
     return card.title.toLowerCase().includes(searchTerm.toLowerCase())
   });
 
@@ -99,7 +99,7 @@ function App() {
         />
       </header>
       <div className="gallery">
-        {cardsFiltered.map(item => {
+        {booksFiltered.map(item => {
           return (
             <>
               <div className="card">
