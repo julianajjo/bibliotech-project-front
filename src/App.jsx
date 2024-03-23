@@ -1,67 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BookModal from "./Components/BookModal";
 import "./app.css";
+import Axios from "axios";
 
 function App() {
 
-  const booksData = [
-    {
-      "title": "Um defeito de cor",
-      "author": " Ana Maria Gonçalves ",
-      "publisher": "Record",
-      "edition": "28",
-      "publication_year": 2006,
-      "number_of_pages": 952,
-      "language": "Português",
-      "format": "Livro",
-      "availability": "Sim",
-      "image_link": "src/images/bibliotech-book.png",
-      "link": "https://a.co/d/eGNS6j0"
-    },
-    {
-      "title": "Um defeito de cor",
-      "author": " Ana Maria Gonçalves ",
-      "publisher": "Record",
-      "edition": "28",
-      "publication_year": 2006,
-      "number_of_pages": 952,
-      "language": "Português",
-      "format": "Livro",
-      "availability": "Sim",
-      "image_link": "src/images/bibliotech-book.png",
-      "link": "https://a.co/d/eGNS6j0"
-    },
-    {
-      "title": "Um defeito de cor",
-      "author": " Ana Maria Gonçalves ",
-      "publisher": "Record",
-      "edition": "28",
-      "publication_year": 2006,
-      "number_of_pages": 952,
-      "language": "Português",
-      "format": "Livro",
-      "availability": "Sim",
-      "image_link": "src/images/bibliotech-book.png",
-      "link": "https://a.co/d/eGNS6j0"
-    },
-    {
-      "title": "Um defeito de cor",
-      "author": " Ana Maria Gonçalves ",
-      "publisher": "Record",
-      "edition": "28",
-      "publication_year": 2006,
-      "number_of_pages": 952,
-      "language": "Português",
-      "format": "Livro",
-      "availability": "Sim",
-      "image_link": "src/images/bibliotech-book.png",
-      "link": "https://a.co/d/eGNS6j0"
-    },
-  ];
-
-  const [searchTerm, setSearchTerm] = useState('');
-
+  const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
+  const [books, setBooks] = useState([]);
+  const baseURL = "localhost:3333/books";
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -75,13 +22,20 @@ function App() {
     return card.title.toLowerCase().includes(searchTerm.toLowerCase())
   });
 
+  useEffect(() => {
+    async function getData() {
+      const response = await Axios.get(baseURL)
+    }
+    getData()
+  }, [])
+
   return (
     <>
-      <div class="container">
-        <div class="logo">
+      <div className="container">
+        <div className="logo">
           <img src="src/images/bibliotech-logo.png" alt="Logotipo da BiblioTech" />
         </div>
-        <div class="buttons">
+        <div className="buttons">
           <button>Devolução</button>
           <button>Empréstimo</button>
           <button onClick={handleClickOpen}>Novo Livro</button> 
@@ -102,7 +56,7 @@ function App() {
         {booksFiltered.map(item => {
           return (
             <>
-              <div className="card">
+              <div className="card" key={item.id}>
                 <img className="card-img" src={item.image_link} alt="Book Cover" />
                 <h2>{item.title}</h2>
                 <p>Autor(es): {item.author}</p>
