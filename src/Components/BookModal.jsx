@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
+import Axios from "axios";
 import "./index.css";
 
-function BookModal({ open, handleClose }) {
+function BookModal({ open, handleClose, baseURL }) {
 
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -13,13 +14,40 @@ function BookModal({ open, handleClose }) {
   const [language, setLanguage] = useState("");
   const [format, setFormat] = useState("");
   const [availability, setAvailability] = useState("");
-  const [imageLink, setImageLink] = useState("");
+  const [imageLink, setImageLink] = useState("src/images/bibliotech-book.png");
   const [link, setLink] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("Dados didgitados no formulário", { title, author, publisher, edition, publicationYear, numberOfPages, language, format, availability, imageLink, link})
-    //Se quando eu abrir a modal ficar com os valores anteriores, devo setar tudo para vazio
+
+    async function sendData() {
+      await Axios.post(baseURL, {
+        title: title,
+        author: author,
+        publisher: publisher,
+        edition: edition,
+        publication_year: publicationYear,
+        number_of_pages: numberOfPages,
+        language: language,
+        format: format,
+        availability: availability,
+        image_link: imageLink,
+        link: link
+      })
+    }
+    sendData();
+    handleClose();
+    setTitle("");
+    setAuthor("");
+    setPublisher("");
+    setEdition("");
+    setPublicationYear("");
+    setNumberOfPages("");
+    setLanguage("");
+    setFormat("");
+    setAvailability("");
+    setImageLink("src/images/bibliotech-book.png");
+    setLink("");
   }
 
   return (
@@ -93,7 +121,7 @@ function BookModal({ open, handleClose }) {
             />
             <input 
               className="book-modal-input" 
-              placeholder="Disponibilidade" 
+              placeholder="Disponível?" 
               type="text" 
               value={availability}
               onChange={(e) => setAvailability(e.target.value)} 
@@ -111,6 +139,7 @@ function BookModal({ open, handleClose }) {
               placeholder="Link da Imagem" 
               type="text" 
               value={imageLink}
+              disabled={true}
               onChange={(e) => setImageLink(e.target.value)} 
             />
           </div>
@@ -121,9 +150,6 @@ function BookModal({ open, handleClose }) {
           </button>
         </form>
       </DialogContent>
-      {/* <DialogActions className="book-modal-actions">
-        <Button onClick={handleClose} className="book-modal-button">Fechar</Button>
-      </DialogActions> */}
     </Dialog>
   );
 }

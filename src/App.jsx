@@ -8,7 +8,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [open, setOpen] = useState(false);
   const [books, setBooks] = useState([]);
-  const baseURL = "localhost:3333/books";
+  const baseURL = "http://localhost:3333/books";
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -18,16 +18,17 @@ function App() {
     setOpen(false);
   };
 
-  const booksFiltered = booksData.filter(card => {
+  const booksFiltered = books.filter(card => {
     return card.title.toLowerCase().includes(searchTerm.toLowerCase())
   });
 
   useEffect(() => {
     async function getData() {
       const response = await Axios.get(baseURL)
+      setBooks(response.data)
     }
     getData()
-  }, [])
+  }, [books])
 
   return (
     <>
@@ -39,7 +40,11 @@ function App() {
           <button>Devolução</button>
           <button>Empréstimo</button>
           <button onClick={handleClickOpen}>Novo Livro</button> 
-          <BookModal open={open} handleClose={handleClose} /> 
+          <BookModal 
+            open={open} 
+            handleClose={handleClose}  
+            baseURL={baseURL}
+          /> 
         </div>
       </div>
       <header>

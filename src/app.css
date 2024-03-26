@@ -2,6 +2,7 @@
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
+  overflow-x: hidden
 }
 
 .container {
@@ -143,7 +144,8 @@ button[type="submit"]:hover {
   border-radius: 8px;
   margin: 10px;
   padding: 15px;
-  max-width: 300px;
+  width: 170px;
+  height: 290px;
   text-align: center;
   font-size: 12px;
 
