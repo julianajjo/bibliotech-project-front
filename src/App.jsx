@@ -2,20 +2,33 @@ import { useState, useEffect } from "react";
 import BookModal from "./Components/BookModal";
 import "./app.css";
 import Axios from "axios";
+import BookDetailsModal from "./Components/BookDetailsModal";
 
 function App() {
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [open, setOpen] = useState(false);
+  const [openCreateBookModal, setOpenCreateBookModal] = useState(false);
+  const [detailsModalOpen, setDetailsModalOpen] = useState(false);
   const [books, setBooks] = useState([]);
+  const [selectedBook, setSelectedBook] = useState(null);
   const baseURL = "http://localhost:3333/books";
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleOpenCreateModal = () => {
+    setOpenCreateBookModal(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseCreateBookModal = () => {
+    setOpenCreateBookModal(false);
+  };
+
+  const handleOpenDetailsModal = (book) => { 
+    setSelectedBook(book);
+    console.log("Informações do livro selecionado:", book);
+    setDetailsModalOpen(true);
+  };
+
+  const handleCloseDetailsModal = () => {
+    setDetailsModalOpen(false);
   };
 
   const booksFiltered = books.filter(card => {
@@ -39,18 +52,18 @@ function App() {
         <div className="buttons">
           <button>Devolução</button>
           <button>Empréstimo</button>
-          <button onClick={handleClickOpen}>Novo Livro</button> 
-          <BookModal 
-            open={open} 
-            handleClose={handleClose}  
+          <button onClick={handleOpenCreateModal}>Novo Livro</button>
+          <BookModal
+            open={openCreateBookModal}
+            handleClose={handleCloseCreateBookModal}
             baseURL={baseURL}
-          /> 
+          />
         </div>
       </div>
       <header>
         <h1>Expandindo mentes, página por página</h1>
         <input
-        className="search-input"
+          className="search-input"
           type='text'
           placeholder='Digite aqui sua busca...'
           value={searchTerm}
@@ -58,7 +71,7 @@ function App() {
         />
       </header>
       <div className="gallery">
-        {booksFiltered.map(item => {
+        {booksFiltered.map(item => {          
           return (
             <>
               <div className="card" key={item.id}>
@@ -67,17 +80,20 @@ function App() {
                 <p>Autor(es): {item.author}</p>
                 <p>Formato: {item.format}</p>
                 <p>Disponível: {item.availability}</p>
-                <a href={item.link} target="_blank">
-                  Saiba mais
-                </a>
+                <button onClick={() => handleOpenDetailsModal(item)}>Saiba mais</button>
               </div>
+              <BookDetailsModal 
+                open={detailsModalOpen} 
+                handleClose={handleCloseDetailsModal} 
+                book={selectedBook}
+              />
             </>
           )
         })}
       </div>
       <footer>
         <p className="read-the-docs">
-          Criado Juliana de Jesus de Oliveira - Aluna da Faculdade Impacta do Curso de ADS.
+          Criado por Juliana de Jesus de Oliveira - Aluna da Faculdade Impacta do Curso de ADS.
         </p>
       </footer>
     </>

@@ -24,7 +24,7 @@ body {
 }
 
 .buttons button {
-  margin-left: 10px; /* Espaçamento entre os botões */
+  margin-right: 10px; 
 }
 
 /* Estilo para o cabeçalho (header) */
