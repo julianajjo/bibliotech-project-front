@@ -14,8 +14,6 @@ function BookDetailsModal({ open, handleClose, baseURL, book }) {
   const [language, setLanguage] = useState("");
   const [format, setFormat] = useState("");
   const [availability, setAvailability] = useState("");
-  const [imageLink, setImageLink] = useState("src/images/bibliotech-book.png");
-  const [link, setLink] = useState("");
 
   useEffect(() => {
     if (book) {
@@ -28,43 +26,8 @@ function BookDetailsModal({ open, handleClose, baseURL, book }) {
       setLanguage(book.language || "");
       setFormat(book.format || "");
       setAvailability(book.availability || "");
-      setImageLink(book.image_link || "src/images/bibliotech-book.png");
-      setLink(book.link || "");
     }
   }, [book]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    async function sendData() {
-      await Axios.post(baseURL, {
-        title: title,
-        author: author,
-        publisher: publisher,
-        edition: edition,
-        publication_year: publicationYear,
-        number_of_pages: numberOfPages,
-        language: language,
-        format: format,
-        availability: availability,
-        image_link: imageLink,
-        link: link
-      })
-    }
-    sendData();
-    handleClose();
-    setTitle("");
-    setAuthor("");
-    setPublisher("");
-    setEdition("");
-    setPublicationYear("");
-    setNumberOfPages("");
-    setLanguage("");
-    setFormat("");
-    setAvailability("");
-    setImageLink("src/images/bibliotech-book.png");
-    setLink("");
-  }
 
   return (
     <Dialog open={open} onClose={handleClose} className="book-modal">
@@ -72,7 +35,7 @@ function BookDetailsModal({ open, handleClose, baseURL, book }) {
         <button className="close-button" onClick={handleClose}>X</button>
       </DialogTitle>
       <DialogContent className="book-modal-content">
-        <form className="form-container book-modal-content" onSubmit={handleSubmit}>
+        <form className="form-container book-modal-content" >
           <h1 className="book-modal-title">Detalhes do Livro</h1>
           <div className="form-section">
             <h3>Informações Básicas</h3>
@@ -80,7 +43,7 @@ function BookDetailsModal({ open, handleClose, baseURL, book }) {
               className="book-modal-input" 
               placeholder="Título" 
               type="text" 
-              value={title}
+              value={`Título: ${title}`}
               onChange={(e) => setTitle(e.target.value)}
               readOnly
             />
@@ -88,22 +51,25 @@ function BookDetailsModal({ open, handleClose, baseURL, book }) {
               className="book-modal-input"
               placeholder="Autor(es)"
               type="text"
-              value={author}
+              value={`Autor(es): ${author}`}
               onChange={(e) => setAuthor(e.target.value)}
+              readOnly
             />
             <input
               className="book-modal-input"
               placeholder="Editora"
               type="text"
-              value={publisher}
+              value={`Editora: ${publisher}`}
               onChange={(e) => setPublisher(e.target.value)}
+              readOnly
             />
             <input
               className="book-modal-input"
               placeholder="Edição"
               type="text"
-              value={edition}
+              value={`Edição: ${edition}`}
               onChange={(e) => setEdition(e.target.value)}
+              readOnly
             />
           </div>
           <div className="form-section">
@@ -112,53 +78,42 @@ function BookDetailsModal({ open, handleClose, baseURL, book }) {
               className="book-modal-input"
               placeholder="Ano de Publicação"
               type="text"
-              value={publicationYear}
+              value={`Ano de publicação: ${publicationYear}`}
               onChange={(e) => setPublicationYear(e.target.value)}
+              readOnly
             />
             <input
               className="book-modal-input"
               placeholder="Número de Páginas"
               type="text"
-              value={numberOfPages}
+              value={`Número de páginas: ${numberOfPages}`}
               onChange={(e) => setNumberOfPages(e.target.value)}
+              readOnly
             />
             <input
               className="book-modal-input"
               placeholder="Idioma"
               type="text"
-              value={language}
+              value={`Idioma: ${language}`}
               onChange={(e) => setLanguage(e.target.value)}
+              readOnly
             />
             <input
               className="book-modal-input"
               placeholder="Formato"
               type="text"
-              value={format}
+              value={`Formato: ${format}`}
               onChange={(e) => setFormat(e.target.value)}
+              readOnly
             />
             <input
               className="book-modal-input"
               placeholder="Disponível?"
               type="text"
-              value={availability}
+              value={`Disponível? ${availability}`}
               onChange={(e) => setAvailability(e.target.value)}
-            />
-            <input
-              className="book-modal-input"
-              placeholder="Link de informações"
-              type="text"
-              value={link}
-              onChange={(e) => setLink(e.target.value)}
-            />
-            <h3>Imagem do Livro</h3>
-            <input
-              className="book-modal-input"
-              placeholder="Link da Imagem"
-              type="text"
-              value={imageLink}
-              disabled={true}
-              onChange={(e) => setImageLink(e.target.value)}
-            />
+              readOnly
+            /> 
           </div>
         </form>
       </DialogContent>
