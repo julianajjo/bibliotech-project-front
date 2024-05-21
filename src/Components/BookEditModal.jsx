@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import Axios from "axios";
 import "./index.css";
 
-function BookModal({ open, handleClose, baseURL }) {
+function BookEditModal({ open, handleClose, book }) {
 
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -17,11 +17,27 @@ function BookModal({ open, handleClose, baseURL }) {
   const [imageLink, setImageLink] = useState("src/images/bibliotech-book.png");
   const [link, setLink] = useState("");
 
+  const baseURL = `http://localhost:3333/books/${book._id}`;
+
+  useEffect(() => {
+    if (book) {
+      setTitle(book.title || "");
+      setAuthor(book.author || "");
+      setPublisher(book.publisher || "");
+      setEdition(book.edition || "");
+      setPublicationYear(book.publication_year || "");
+      setNumberOfPages(book.number_of_pages || "");
+      setLanguage(book.language || "");
+      setFormat(book.format || "");
+      setAvailability(book.availability || "");
+    }
+  }, [book]);
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
     async function sendData() {
-      await Axios.post(baseURL, {
+      await Axios.put(baseURL, {
         title: title,
         author: author,
         publisher: publisher,
@@ -57,7 +73,7 @@ function BookModal({ open, handleClose, baseURL }) {
       </DialogTitle>
       <DialogContent className="book-modal-content">
         <form className="form-container book-modal-content" onSubmit={handleSubmit}>
-          <h1 className="book-modal-title">Cadastre um novo livro:</h1>
+          <h1 className="book-modal-title">Edição do livro:</h1>
           <div className="form-section">
             <h3>Informações Básicas</h3>
             <input 
@@ -146,7 +162,7 @@ function BookModal({ open, handleClose, baseURL }) {
           <button 
             className="book-modal-button" 
             type="submit">
-            Cadastrar Livro
+            Editar Livro
           </button>
         </form>
       </DialogContent>
@@ -154,4 +170,4 @@ function BookModal({ open, handleClose, baseURL }) {
   );
 }
 
-export default BookModal;
+export default BookEditModal;

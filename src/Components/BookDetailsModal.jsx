@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogActions, DialogContent, DialogTitle, Button } from '@mui/material';
-import Axios from "axios";
+import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import "./index.css";
 
-function BookDetailsModal({ open, handleClose, baseURL, book }) {
+function BookDetailsModal({ open, handleClose, book }) {
 
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -119,6 +118,6 @@ function BookDetailsModal({ open, handleClose, baseURL, book }) {
       </DialogContent>
     </Dialog>
   );
-}
+};
 
 export default BookDetailsModal;

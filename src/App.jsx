@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 import BookModal from "./Components/BookModal";
+import BookEditModal from "./Components/BookEditModal";
 import "./app.css";
 import Axios from "axios";
 import BookDetailsModal from "./Components/BookDetailsModal";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [openCreateBookModal, setOpenCreateBookModal] = useState(false);
   const [detailsModalOpen, setDetailsModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
   const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
   const baseURL = "http://localhost:3333/books";
@@ -21,15 +25,24 @@ function App() {
     setOpenCreateBookModal(false);
   };
 
-  const handleOpenDetailsModal = (book) => { 
+  const handleOpenDetailsModal = (book) => {
     setSelectedBook(book);
-    console.log("Informações do livro selecionado:", book);
     setDetailsModalOpen(true);
   };
 
   const handleCloseDetailsModal = () => {
     setDetailsModalOpen(false);
   };
+
+  const handleOpenEditModal = (book) => {
+    setSelectedBook(book);
+    setEditModalOpen(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setEditModalOpen(false);
+  };
+
 
   const booksFiltered = books.filter(card => {
     return card.title.toLowerCase().includes(searchTerm.toLowerCase())
@@ -71,20 +84,30 @@ function App() {
         />
       </header>
       <div className="gallery">
-        {booksFiltered.map(item => {          
+        {booksFiltered.map(item => {
           return (
             <>
               <div className="card" key={item.id}>
-                <img className="card-img" src={item.image_link} alt="Book Cover" />
-                <h2>{item.title}</h2>
-                <p>Autor(es): {item.author}</p>
-                <p>Formato: {item.format}</p>
-                <p>Disponível: {item.availability}</p>
-                <button onClick={() => handleOpenDetailsModal(item)}>Saiba mais</button>
+                <div className="card-content">
+                  <img className="card-img" src={item.image_link} alt="Book Cover" />
+                  <h2>{item.title}</h2>
+                  <p>Autor(es): {item.author}</p>
+                  <p>Formato: {item.format}</p>
+                  <p>Disponível: {item.availability}</p>
+                </div>
+                <div className="card-actions">
+                  <button onClick={() => handleOpenDetailsModal(item)}>Saiba mais</button>
+                  <FontAwesomeIcon icon={faEdit} className="edit-icon" onClick={() => handleOpenEditModal(item)} />
+                </div>
               </div>
-              <BookDetailsModal 
-                open={detailsModalOpen} 
-                handleClose={handleCloseDetailsModal} 
+              <BookDetailsModal
+                open={detailsModalOpen}
+                handleClose={handleCloseDetailsModal}
+                book={selectedBook}
+              />
+              <BookEditModal
+                open={editModalOpen}
+                handleClose={handleCloseEditModal}
                 book={selectedBook}
               />
             </>
