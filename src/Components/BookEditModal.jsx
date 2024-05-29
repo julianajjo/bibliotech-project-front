@@ -4,7 +4,6 @@ import Axios from "axios";
 import "./index.css";
 
 function BookEditModal({ open, handleClose, book }) {
-
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [publisher, setPublisher] = useState("");
@@ -17,8 +16,6 @@ function BookEditModal({ open, handleClose, book }) {
   const [imageLink, setImageLink] = useState("src/images/bibliotech-book.png");
   const [link, setLink] = useState("");
 
-  const baseURL = `http://localhost:3333/books/${book._id}`;
-
   useEffect(() => {
     if (book) {
       setTitle(book.title || "");
@@ -30,29 +27,44 @@ function BookEditModal({ open, handleClose, book }) {
       setLanguage(book.language || "");
       setFormat(book.format || "");
       setAvailability(book.availability || "");
+      setImageLink(book.image_link || "src/images/bibliotech-book.png");
+      setLink(book.link || "");
     }
   }, [book]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    async function sendData() {
+    if (!book || !book._id) {
+      console.error("O livro não está definido ou não possui um _id");
+      return;
+    }
+
+    const baseURL = `http://localhost:3333/books/${book._id}`;
+
+    try {
       await Axios.put(baseURL, {
-        title: title,
-        author: author,
-        publisher: publisher,
-        edition: edition,
+        title,
+        author,
+        publisher,
+        edition,
         publication_year: publicationYear,
         number_of_pages: numberOfPages,
-        language: language,
-        format: format,
-        availability: availability,
+        language,
+        format,
+        availability,
         image_link: imageLink,
-        link: link
-      })
+        link
+      });
+      handleClose();
+      resetForm();
+    } catch (error) {
+      console.error('Erro ao editar o livro:', error);
+      alert('Erro ao editar o livro. Por favor, tente novamente.');
     }
-    sendData();
-    handleClose();
+  };
+
+  const resetForm = () => {
     setTitle("");
     setAuthor("");
     setPublisher("");
@@ -64,7 +76,7 @@ function BookEditModal({ open, handleClose, book }) {
     setAvailability("");
     setImageLink("src/images/bibliotech-book.png");
     setLink("");
-  }
+  };
 
   return (
     <Dialog open={open} onClose={handleClose} className="book-modal">
