@@ -180,18 +180,18 @@ footer {
 
 .card-actions {
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* Alinha os itens em uma linha */
   align-items: center;
-  gap: 10px; 
+  gap: 10px; /* Espaçamento entre os itens */
 }
 
-.edit-icon {
+.edit-icon, .delete-icon {
   cursor: pointer;
   color: #000;
   font-size: 16px;
 }
 
-.edit-icon:hover {
+.edit-icon:hover, .delete-icon:hover {
   color: #007bff;
 }
 

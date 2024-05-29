@@ -5,7 +5,7 @@ import "./app.css";
 import Axios from "axios";
 import BookDetailsModal from "./Components/BookDetailsModal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
 
@@ -98,6 +98,7 @@ function App() {
                 <div className="card-actions">
                   <button onClick={() => handleOpenDetailsModal(item)}>Saiba mais</button>
                   <FontAwesomeIcon icon={faEdit} className="edit-icon" onClick={() => handleOpenEditModal(item)} />
+                  <FontAwesomeIcon icon={faTrash} className="delete-icon" onClick={() => handleDelete(item)} />
                 </div>
               </div>
               <BookDetailsModal
