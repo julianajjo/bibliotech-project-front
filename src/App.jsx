@@ -97,8 +97,10 @@ function App() {
                 </div>
                 <div className="card-actions">
                   <button onClick={() => handleOpenDetailsModal(item)}>Saiba mais</button>
-                  <FontAwesomeIcon icon={faEdit} className="edit-icon" onClick={() => handleOpenEditModal(item)} />
-                  <FontAwesomeIcon icon={faTrash} className="delete-icon" onClick={() => handleDelete(item)} />
+                  <div className="icon-container">
+                    <FontAwesomeIcon icon={faEdit} className="edit-icon" onClick={() => handleOpenEditModal(item)} />
+                    <FontAwesomeIcon icon={faTrash} className="delete-icon" onClick={() => handleDelete(item)} />
+                  </div>
                 </div>
               </div>
               <BookDetailsModal

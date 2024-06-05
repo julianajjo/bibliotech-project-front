@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
-  overflow-x: hidden
+  overflow-x: hidden;
 }
 
 .container {
@@ -15,7 +15,7 @@ body {
 
 .logo img {
   width: 150px;
-  height: auto
+  height: auto;
 }
 
 .buttons {
@@ -132,11 +132,11 @@ button[type="submit"]:hover {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+}
 
-  .card-img {
-    max-width: 50%;
-    height: auto;
-  }
+.card-img {
+  max-width: 100%;
+  height: 60px;
 }
 
 .card h2 {
@@ -180,9 +180,15 @@ footer {
 
 .card-actions {
   display: flex;
-  flex-direction: row; /* Alinha os itens em uma linha */
+  flex-direction: column;
   align-items: center;
-  gap: 10px; /* Espaçamento entre os itens */
+  gap: 10px;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: row; /* Alinha os ícones em uma linha */
+  gap: 10px;
 }
 
 .edit-icon, .delete-icon {
@@ -191,8 +197,12 @@ footer {
   font-size: 16px;
 }
 
-.edit-icon:hover, .delete-icon:hover {
+.edit-icon:hover {
   color: #007bff;
+}
+
+.delete-icon:hover {
+  color: red;
 }
 
 .card-content {
