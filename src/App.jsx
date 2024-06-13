@@ -4,6 +4,7 @@ import BookEditModal from "./Components/BookEditModal";
 import "./app.css";
 import Axios from "axios";
 import BookDetailsModal from "./Components/BookDetailsModal";
+import BookDeleteModal from "./Components/BookDeleteModal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -13,6 +14,7 @@ function App() {
   const [openCreateBookModal, setOpenCreateBookModal] = useState(false);
   const [detailsModalOpen, setDetailsModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [books, setBooks] = useState([]);
   const [selectedBook, setSelectedBook] = useState(null);
   const baseURL = "http://localhost:3333/books";
@@ -43,18 +45,32 @@ function App() {
     setEditModalOpen(false);
   };
 
+  const handleOpenDeleteModal = (book) => {
+    setSelectedBook(book);
+    setDeleteModalOpen(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setDeleteModalOpen(false);
+  };
+
 
   const booksFiltered = books.filter(card => {
     return card.title.toLowerCase().includes(searchTerm.toLowerCase())
   });
 
-  useEffect(() => {
-    async function getData() {
-      const response = await Axios.get(baseURL)
-      setBooks(response.data)
+  const fetchBooks = async () => {
+    try {
+      const response = await Axios.get(baseURL);
+      setBooks(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar livros:", error);
     }
-    getData()
-  }, [books])
+  };
+
+  useEffect(() => {
+    fetchBooks();
+  }, []);
 
   return (
     <>
@@ -99,7 +115,7 @@ function App() {
                   <button onClick={() => handleOpenDetailsModal(item)}>Saiba mais</button>
                   <div className="icon-container">
                     <FontAwesomeIcon icon={faEdit} className="edit-icon" onClick={() => handleOpenEditModal(item)} />
-                    <FontAwesomeIcon icon={faTrash} className="delete-icon" onClick={() => handleDelete(item)} />
+                    <FontAwesomeIcon icon={faTrash} className="delete-icon" onClick={() => handleOpenDeleteModal(item)} />
                   </div>
                 </div>
               </div>
@@ -112,6 +128,12 @@ function App() {
                 open={editModalOpen}
                 handleClose={handleCloseEditModal}
                 book={selectedBook}
+              />
+              <BookDeleteModal
+                open={deleteModalOpen}
+                handleClose={handleCloseDeleteModal}
+                book={selectedBook}
+                onDelete={fetchBooks}
               />
             </>
           )

@@ -92,22 +92,6 @@ textarea {
   border-radius: 4px;
 }
 
-button[type="submit"] {
-  padding: 10px;
-  background: #777769;
-  color: #fff;
-  border: 1px solid #2E2427;
-  border-radius: 4px;
-  cursor: pointer;
-  padding: 20px;
-  width: 50%;
-}
-
-button[type="submit"]:hover {
-  background: #c9d5b5;
-  color: #333;
-}
-
 .gallery {
   background: #FFF;
   display: flex;
@@ -187,7 +171,7 @@ footer {
 
 .icon-container {
   display: flex;
-  flex-direction: row; /* Alinha os ícones em uma linha */
+  flex-direction: row;
   gap: 10px;
 }
 
